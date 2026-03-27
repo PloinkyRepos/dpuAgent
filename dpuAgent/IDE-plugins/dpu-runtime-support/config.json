@@ -1,0 +1,19 @@
+{
+  "pluginCategory": "application",
+  "id": "dpu-runtime-support",
+  "component": "dpu-runtime-support",
+  "location": ["file-exp:internal"],
+  "label": "DPU Runtime Support",
+  "tooltip": "Internal DPU runtime support",
+  "icon": "./icon.svg",
+  "presenter": "DpuRuntimeSupport",
+  "type": "embedded",
+  "autoPin": false,
+  "dependencies": [
+    {
+      "component": "dpu-permissions-modal",
+      "presenter": "DpuPermissionsModal",
+      "type": "modal"
+    }
+  ]
+}

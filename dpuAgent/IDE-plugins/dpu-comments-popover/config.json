@@ -1,0 +1,10 @@
+{
+  "pluginCategory": "application",
+  "id": "dpu-comments-popover",
+  "component": "dpu-comments-popover",
+  "location": ["dpu:internal"],
+  "label": "DPU Comments Popover",
+  "tooltip": "Internal DPU comments component for confidential files.",
+  "presenter": "DpuCommentsPopover",
+  "type": "embedded"
+}

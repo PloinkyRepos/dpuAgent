@@ -1,0 +1,364 @@
+{
+  "maxParallelTasks": 1,
+  "tools": [
+    {
+      "name": "dpu_whoami",
+      "title": "DPU Who Am I",
+      "description": "Resolve the current actor identity as seen by the DPU agent.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {},
+      "env": {
+        "TOOL_NAME": "dpu_whoami"
+      }
+    },
+    {
+      "name": "dpu_workspace_roots",
+      "title": "DPU Workspace Roots",
+      "description": "Return the virtual Confidential roots for the current actor.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {},
+      "env": {
+        "TOOL_NAME": "dpu_workspace_roots"
+      }
+    },
+    {
+      "name": "dpu_secret_list",
+      "title": "DPU Secret List",
+      "description": "List secrets visible to the current actor.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {},
+      "env": {
+        "TOOL_NAME": "dpu_secret_list"
+      }
+    },
+    {
+      "name": "dpu_secret_get",
+      "title": "DPU Secret Get",
+      "description": "Get a secret by key, filtered by the current actor permissions.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "key": {
+          "type": "string",
+          "optional": false
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_secret_get"
+      }
+    },
+    {
+      "name": "dpu_secret_put",
+      "title": "DPU Secret Put",
+      "description": "Create or update a secret.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "key": {
+          "type": "string",
+          "optional": false
+        },
+        "value": {
+          "type": "string",
+          "optional": false
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_secret_put"
+      }
+    },
+    {
+      "name": "dpu_secret_delete",
+      "title": "DPU Secret Delete",
+      "description": "Delete a secret by key.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "key": {
+          "type": "string",
+          "optional": false
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_secret_delete"
+      }
+    },
+    {
+      "name": "dpu_secret_grant",
+      "title": "DPU Secret Grant",
+      "description": "Grant Access, Read, or Write on a secret.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "key": {
+          "type": "string",
+          "optional": false
+        },
+        "principal": {
+          "type": "string",
+          "optional": false
+        },
+        "role": {
+          "type": "string",
+          "optional": false,
+          "enum": ["access", "read", "write"]
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_secret_grant"
+      }
+    },
+    {
+      "name": "dpu_secret_revoke",
+      "title": "DPU Secret Revoke",
+      "description": "Revoke a previously granted secret role from a principal.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "key": {
+          "type": "string",
+          "optional": false
+        },
+        "principal": {
+          "type": "string",
+          "optional": false
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_secret_revoke"
+      }
+    },
+    {
+      "name": "dpu_confidential_list",
+      "title": "DPU Confidential List",
+      "description": "List confidential objects in My Space or Shared.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "scope": {
+          "type": "string",
+          "optional": true,
+          "enum": ["my-space", "shared"]
+        },
+        "parentId": {
+          "type": "string",
+          "optional": true
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_confidential_list"
+      }
+    },
+    {
+      "name": "dpu_confidential_get",
+      "title": "DPU Confidential Get",
+      "description": "Get a confidential object by id.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "id": {
+          "type": "string",
+          "optional": false
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_confidential_get"
+      }
+    },
+    {
+      "name": "dpu_confidential_create",
+      "title": "DPU Confidential Create",
+      "description": "Create a confidential file or folder.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "type": {
+          "type": "string",
+          "optional": false,
+          "enum": ["file", "folder"]
+        },
+        "name": {
+          "type": "string",
+          "optional": false
+        },
+        "parentId": {
+          "type": "string",
+          "optional": true
+        },
+        "content": {
+          "type": "string",
+          "optional": true
+        },
+        "mimeType": {
+          "type": "string",
+          "optional": true
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_confidential_create"
+      }
+    },
+    {
+      "name": "dpu_confidential_update",
+      "title": "DPU Confidential Update",
+      "description": "Update a confidential file or folder.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "id": {
+          "type": "string",
+          "optional": false
+        },
+        "name": {
+          "type": "string",
+          "optional": true
+        },
+        "content": {
+          "type": "string",
+          "optional": true
+        },
+        "mimeType": {
+          "type": "string",
+          "optional": true
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_confidential_update"
+      }
+    },
+    {
+      "name": "dpu_confidential_delete",
+      "title": "DPU Confidential Delete",
+      "description": "Delete a confidential file or folder recursively.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "id": {
+          "type": "string",
+          "optional": false
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_confidential_delete"
+      }
+    },
+    {
+      "name": "dpu_confidential_comment_add",
+      "title": "DPU Confidential Comment Add",
+      "description": "Add a comment to a confidential object.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "id": {
+          "type": "string",
+          "optional": false
+        },
+        "message": {
+          "type": "string",
+          "optional": false
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_confidential_comment_add"
+      }
+    },
+    {
+      "name": "dpu_confidential_comment_delete",
+      "title": "DPU Confidential Comment Delete",
+      "description": "Delete a comment from a confidential object.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "id": {
+          "type": "string",
+          "optional": false
+        },
+        "commentId": {
+          "type": "string",
+          "optional": false
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_confidential_comment_delete"
+      }
+    },
+    {
+      "name": "dpu_confidential_grant",
+      "title": "DPU Confidential Grant",
+      "description": "Grant access, read, comment, or write on a confidential object.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "id": {
+          "type": "string",
+          "optional": false
+        },
+        "principal": {
+          "type": "string",
+          "optional": false
+        },
+        "role": {
+          "type": "string",
+          "optional": false,
+          "enum": ["access", "read", "comment", "write"]
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_confidential_grant"
+      }
+    },
+    {
+      "name": "dpu_confidential_revoke",
+      "title": "DPU Confidential Revoke",
+      "description": "Revoke a previously granted confidential object role from a principal.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "id": {
+          "type": "string",
+          "optional": false
+        },
+        "principal": {
+          "type": "string",
+          "optional": false
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_confidential_revoke"
+      }
+    },
+    {
+      "name": "dpu_access_check",
+      "title": "DPU Access Check",
+      "description": "Check whether the current actor has a specific permission on a secret or confidential object.",
+      "command": "tools/dpu_tool.sh",
+      "cwd": "workspace",
+      "inputSchema": {
+        "kind": {
+          "type": "string",
+          "optional": false,
+          "enum": ["secret", "confidential"]
+        },
+        "key": {
+          "type": "string",
+          "optional": true
+        },
+        "id": {
+          "type": "string",
+          "optional": true
+        },
+        "permission": {
+          "type": "string",
+          "optional": false,
+          "enum": ["access", "read", "comment", "write"]
+        }
+      },
+      "env": {
+        "TOOL_NAME": "dpu_access_check"
+      }
+    }
+  ]
+}

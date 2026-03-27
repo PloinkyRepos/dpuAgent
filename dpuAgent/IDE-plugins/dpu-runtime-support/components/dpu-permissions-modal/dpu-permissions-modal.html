@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <div class="modal-title">Permissions</div>
+    <div class="close" data-local-action="closeModal" aria-label="Close">
+        <img class="close-icon" src="./assets/icons/x-mark.svg" alt="close">
+    </div>
+</div>
+<div class="modal-body dpu-permissions-body">
+    <div class="dpu-permissions-summary" id="dpuPermissionsSummary"></div>
+    <div class="dpu-permissions-status" id="dpuPermissionsStatus" role="status" aria-live="polite"></div>
+
+    <div class="dpu-permissions-section">
+        <div class="dpu-permissions-section-title">Current access</div>
+        <div class="dpu-permissions-list" id="dpuPermissionsList"></div>
+    </div>
+
+    <div class="dpu-permissions-section" id="dpuPermissionsGrantSection">
+        <div class="dpu-permissions-section-title">Grant access</div>
+        <form class="dpu-permissions-form" id="dpuPermissionsForm">
+            <label class="dpu-permissions-field">
+                <span>User</span>
+                <div class="dpu-permissions-picker">
+                    <input id="dpuPermissionPrincipal" type="text" autocomplete="off" spellcheck="false" placeholder="Search user by name or username">
+                    <div class="dpu-permissions-picker-list hidden" id="dpuPermissionSuggestions" role="listbox" aria-label="User suggestions"></div>
+                </div>
+            </label>
+            <label class="dpu-permissions-field">
+                <span>Role</span>
+                <select id="dpuPermissionRole"></select>
+            </label>
+            <div class="dpu-permissions-legend" id="dpuPermissionsLegend"></div>
+            <div class="modal-actions">
+                <button type="button" class="general-button" data-local-action="grantPermission">Grant</button>
+                <button type="button" class="gray-button" data-local-action="closeModal">Close</button>
+            </div>
+        </form>
+    </div>
+</div>

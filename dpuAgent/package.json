@@ -1,0 +1,17 @@
+{
+  "name": "dpu-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone DPU MCP agent for confidential storage, secrets, and access control.",
+  "bin": {
+    "dpu-agent": "./server/standalone-mcp-server.mjs"
+  },
+  "scripts": {
+    "start": "node ./server/standalone-mcp-server.mjs",
+    "test": "node --test ./tests/dpu-store.test.mjs"
+  },
+  "dependencies": {
+    "mcp-sdk": "*"
+  }
+}

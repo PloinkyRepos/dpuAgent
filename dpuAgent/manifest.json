@@ -1,0 +1,20 @@
+{
+  "container": "node:20-alpine",
+  "profiles": {
+    "default": {
+      "env": [
+        "ASSISTOS_FS_ROOT",
+        "WORKSPACE_ROOT",
+        "DPU_WORKSPACE_ROOT",
+        {
+          "name": "DPU_DATA_ROOT",
+          "required": false
+        },
+        {
+          "name": "DPU_MASTER_KEY",
+          "allowSecretsFile": false
+        }
+      ]
+    }
+  }
+}

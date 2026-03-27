@@ -1,0 +1,268 @@
+dpu-permissions-modal .dpu-permissions-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: min(760px, 92vw);
+}
+
+dpu-permissions-modal .dpu-permissions-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+}
+
+dpu-permissions-modal .dpu-permissions-title {
+    font-weight: 700;
+    color: var(--text);
+    word-break: break-word;
+}
+
+dpu-permissions-modal .dpu-permissions-meta {
+    color: var(--text-soft);
+    font-size: 0.92rem;
+    word-break: break-word;
+}
+
+dpu-permissions-modal .dpu-permissions-status {
+    min-height: 1.2rem;
+    color: var(--text-soft);
+    font-size: 0.92rem;
+}
+
+dpu-permissions-modal .dpu-permissions-status.error {
+    color: var(--file-exp-error);
+}
+
+dpu-permissions-modal .dpu-permissions-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+dpu-permissions-modal .dpu-permissions-section[hidden] {
+    display: none !important;
+}
+
+dpu-permissions-modal .dpu-permissions-section-title {
+    font-weight: 700;
+    color: var(--text);
+}
+
+dpu-permissions-modal .dpu-permissions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+dpu-permissions-modal .dpu-permissions-empty {
+    padding: 14px 16px;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text-soft);
+}
+
+dpu-permissions-modal .dpu-permissions-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+}
+
+dpu-permissions-modal .dpu-permissions-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+dpu-permissions-modal .dpu-permissions-inline-editor {
+    display: grid;
+    gap: 6px;
+    max-width: 220px;
+}
+
+dpu-permissions-modal .dpu-permissions-inline-editor span {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+}
+
+dpu-permissions-modal .dpu-permissions-principal {
+    font-weight: 700;
+    color: var(--text);
+    word-break: break-word;
+}
+
+dpu-permissions-modal .dpu-permissions-role {
+    color: var(--text-soft);
+    font-size: 0.92rem;
+}
+
+dpu-permissions-modal .dpu-permissions-row-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+dpu-permissions-modal .dpu-permissions-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(180px, 220px);
+    gap: 14px;
+    align-items: end;
+}
+
+dpu-permissions-modal .dpu-permissions-legend {
+    display: grid;
+    gap: 10px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--surface) 82%, var(--bg) 18%);
+    grid-column: span 2;
+}
+
+dpu-permissions-modal .dpu-permissions-legend-title {
+    font-weight: 700;
+    color: var(--text);
+}
+
+dpu-permissions-modal .dpu-permissions-legend-list {
+    display: grid;
+    gap: 8px;
+}
+
+dpu-permissions-modal .dpu-permissions-legend-item {
+    display: grid;
+    grid-template-columns: minmax(92px, auto) minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+}
+
+dpu-permissions-modal .dpu-permissions-legend-role {
+    font-size: 0.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+dpu-permissions-modal .dpu-permissions-legend-description {
+    color: var(--text-soft);
+    font-size: 0.6rem;
+    line-height: 1.1;
+}
+
+dpu-permissions-modal .dpu-permissions-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+dpu-permissions-modal .dpu-permissions-field span {
+    font-size: 0.9rem;
+    color: var(--text-soft);
+}
+
+dpu-permissions-modal .dpu-permissions-field input,
+dpu-permissions-modal .dpu-permissions-field select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    box-sizing: border-box;
+}
+
+dpu-permissions-modal .dpu-permissions-picker {
+    position: relative;
+}
+
+dpu-permissions-modal .dpu-permissions-picker-list {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 220px;
+    padding: 6px;
+    overflow: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
+}
+
+dpu-permissions-modal .dpu-permissions-picker-list.hidden {
+    display: none;
+}
+
+dpu-permissions-modal .dpu-permissions-suggestion {
+    display: grid;
+    gap: 2px;
+    width: 100%;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+}
+
+dpu-permissions-modal .dpu-permissions-suggestion:hover,
+dpu-permissions-modal .dpu-permissions-suggestion.active {
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+
+dpu-permissions-modal .dpu-permissions-suggestion-name {
+    font-weight: 700;
+    color: var(--text);
+}
+
+dpu-permissions-modal .dpu-permissions-suggestion-meta {
+    font-size: 0.86rem;
+    color: var(--text-soft);
+}
+
+dpu-permissions-modal .dpu-permissions-picker-empty {
+    padding: 10px 12px;
+    color: var(--text-soft);
+    font-size: 0.9rem;
+}
+
+dpu-permissions-modal .dpu-permissions-field input:focus,
+dpu-permissions-modal .dpu-permissions-field select:focus {
+    outline: 2px solid color-mix(in srgb, var(--accent) 26%, transparent);
+    outline-offset: 1px;
+}
+
+dpu-permissions-modal .modal-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+}
+
+@media (max-width: 720px) {
+    dpu-permissions-modal .dpu-permissions-body {
+        min-width: auto;
+    }
+
+    dpu-permissions-modal .dpu-permissions-row,
+    dpu-permissions-modal .dpu-permissions-form,
+    dpu-permissions-modal .dpu-permissions-legend-item {
+        grid-template-columns: 1fr;
+    }
+}
