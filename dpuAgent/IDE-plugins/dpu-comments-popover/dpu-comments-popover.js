@@ -76,12 +76,14 @@ export class DpuCommentsPopover {
     afterRender() {
         this.toggleHidden();
         const textarea = this.element.querySelector('.composer-textarea');
+        const submitButton = this.element.querySelector('[data-local-action="submitComment"]');
         if (textarea) {
             textarea.value = this.state.draft || '';
             textarea.addEventListener('input', (event) => {
-                this.updateDraft(event.target);
+                this.updateDraft(event.target, submitButton);
             });
         }
+        this.syncComposerState(submitButton);
     }
 
     renderComments() {
@@ -133,9 +135,18 @@ export class DpuCommentsPopover {
         `;
     }
 
-    updateDraft(target) {
+    updateDraft(target, submitButton) {
         this.state.draft = target?.value || '';
-        this.invalidate();
+        this.syncComposerState(submitButton);
+    }
+
+    syncComposerState(submitButton = this.element.querySelector('[data-local-action="submitComment"]')) {
+        if (!submitButton) {
+            return;
+        }
+        const disabled = !String(this.state.draft || '').trim() || this.state.busy;
+        submitButton.disabled = disabled;
+        submitButton.classList.toggle('disabled', disabled);
     }
 
     closePopover() {
