@@ -26,3 +26,7 @@ Default HTTP endpoint:
 
 - `POST /mcp`
 - `GET /health`
+
+## Documentation
+
+- [DA01 - DPU Agent Overview](./docs/specs/DA/DA01-agent-overview.md)
