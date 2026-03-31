@@ -12,6 +12,6 @@
     "test": "node --test ./tests/dpu-store.test.mjs"
   },
   "dependencies": {
-    "mcp-sdk": "*"
+    "mcp-sdk": "github:PloinkyRepos/MCPSDK#main"
   }
 }
