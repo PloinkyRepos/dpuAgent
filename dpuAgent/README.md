@@ -29,4 +29,9 @@ Default HTTP endpoint:
 
 ## Documentation
 
-- [DA01 - DPU Agent Overview](./docs/specs/DA/DA01-agent-overview.md)
+- [DS01 - DPU Agent Vision and Goals](./docs/specs/DS01-vision.md)
+- [DS02 - Storage Architecture](./docs/specs/DS02-storage-architecture.md)
+- [DS03 - Secrets Model](./docs/specs/DS03-secrets-model.md)
+- [DS04 - Confidential Objects and Collaboration Model](./docs/specs/DS04-confidential-objects.md)
+- [DS05 - Runtime and MCP Interface](./docs/specs/DS05-runtime-and-mcp.md)
+- [DS06 - Secrets Product Model](./docs/specs/DS06-secrets-product-model.md)
