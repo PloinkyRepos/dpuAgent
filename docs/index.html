@@ -40,35 +40,9 @@
                 </section>
 
                 <section class="highlight-box">
-                    <h3>What this agent does</h3>
-                    <ul>
-                        <li>Acts as intermediary between Explorer confidential workflows and encrypted DPU storage operations.</li>
-                        <li>Enforces identity-aware access control for secrets and confidential objects.</li>
-                        <li>Keeps secret values encrypted at rest and separated from metadata registries.</li>
-                        <li>Supports both Ploinky runtime usage and standalone MCP server mode.</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Documentation Map</h2>
-                    <div class="grid">
-                        <article>
-                            <h3>Architecture</h3>
-                            <p>Storage layers, ACL source of truth, and DPU boundaries are documented in <a href="architecture.html">Architecture</a>.</p>
-                        </article>
-                        <article>
-                            <h3>Execution Workflow</h3>
-                            <p>Per-invocation dispatch, auth extraction, and response flow are documented in <a href="execution-workflow.html">Tool Execution Workflow</a>.</p>
-                        </article>
-                        <article>
-                            <h3>MCP Surface</h3>
-                            <p>Tool groups and input contracts are listed in <a href="mcp-tools.html">MCP Tools</a>.</p>
-                        </article>
-                        <article>
-                            <h3>Configuration</h3>
-                            <p>Runtime variables, manifest rules, and validation expectations are documented in <a href="configuration.html">Manifest and Environment</a>.</p>
-                        </article>
-                    </div>
+                    <h3>Operational Role</h3>
+                    <p><code>dpuAgent</code> mediates between Explorer confidential workflows and encrypted DPU storage operations, with identity-aware access checks applied before protected values or content are materialized.</p>
+                    <p>The same boundary separates metadata, ACL state, encrypted secret values, and confidential blob content, and it supports both Ploinky runtime execution and standalone MCP mode.</p>
                 </section>
 
                 <section>

@@ -79,20 +79,12 @@
 
                 <section>
                     <h2>Input Contract Characteristics</h2>
-                    <ul>
-                        <li>String identifiers such as <code>key</code>, <code>id</code>, <code>principal</code>, and <code>role</code> are validated before dispatch.</li>
-                        <li>Enum constraints are enforced for fields like <code>scope</code>, <code>kind</code>, and <code>permission</code>.</li>
-                        <li>Unsupported tool names fail early and return explicit errors.</li>
-                    </ul>
+                    <p>String identifiers such as <code>key</code>, <code>id</code>, <code>principal</code>, and <code>role</code> are validated before dispatch, and enum constraints are enforced for fields such as <code>scope</code>, <code>kind</code>, and <code>permission</code>. Unsupported tool names fail early with explicit errors.</p>
                 </section>
 
                 <section>
                     <h2>Execution Characteristics</h2>
-                    <ul>
-                        <li><code>maxParallelTasks</code> is set to <code>1</code> in MCP config for controlled mutation sequencing.</li>
-                        <li>Responses are actor-filtered and do not expose raw storage internals directly.</li>
-                        <li>Unauthorized operations fail before secret plaintext or protected content is materialized.</li>
-                    </ul>
+                    <p><code>maxParallelTasks</code> is set to <code>1</code> for controlled mutation sequencing. Responses are actor-filtered and avoid raw storage exposure, and unauthorized operations fail before secret plaintext or protected confidential content is materialized.</p>
                 </section>
             </div>
         </div>
