@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dpuAgent Docs - Overview</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main class="content content--with-sidebar">
+        <div class="doc-layout">
+            <aside class="doc-sidebar" aria-label="dpuAgent documentation navigation">
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Documentation</p>
+                    <nav>
+                        <a href="index.html" aria-current="page">Overview</a>
+                        <a href="architecture.html">Architecture</a>
+                        <a href="execution-workflow.html">Tool Execution Workflow</a>
+                        <a href="mcp-tools.html">MCP Tools</a>
+                        <a href="integrations.html">Ploinky and Explorer Integration</a>
+                        <a href="configuration.html">Manifest and Environment</a>
+                    </nav>
+                </div>
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Specifications</p>
+                    <nav>
+                        <a href="specs-index.html">Design Specifications</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <div class="doc-main">
+                <section class="lead">
+                    <h1>dpuAgent Documentation</h1>
+                    <p>This repository currently hosts one Ploinky agent: <code>dpuAgent</code>.</p>
+                    <p>The agent is a confidential data plane consumed by Explorer flows. It exposes MCP tools for secrets, confidential objects, comments, and ACL enforcement.</p>
+                    <p>Tool execution is routed through <code>dpuAgent/tools/dpu_tool.sh</code> and dispatched by <code>dpu_tool.mjs</code>.</p>
+                </section>
+
+                <section class="highlight-box">
+                    <h3>What this agent does</h3>
+                    <ul>
+                        <li>Acts as intermediary between Explorer confidential workflows and encrypted DPU storage operations.</li>
+                        <li>Enforces identity-aware access control for secrets and confidential objects.</li>
+                        <li>Keeps secret values encrypted at rest and separated from metadata registries.</li>
+                        <li>Supports both Ploinky runtime usage and standalone MCP server mode.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Documentation Map</h2>
+                    <div class="grid">
+                        <article>
+                            <h3>Architecture</h3>
+                            <p>Storage layers, ACL source of truth, and DPU boundaries are documented in <a href="architecture.html">Architecture</a>.</p>
+                        </article>
+                        <article>
+                            <h3>Execution Workflow</h3>
+                            <p>Per-invocation dispatch, auth extraction, and response flow are documented in <a href="execution-workflow.html">Tool Execution Workflow</a>.</p>
+                        </article>
+                        <article>
+                            <h3>MCP Surface</h3>
+                            <p>Tool groups and input contracts are listed in <a href="mcp-tools.html">MCP Tools</a>.</p>
+                        </article>
+                        <article>
+                            <h3>Configuration</h3>
+                            <p>Runtime variables, manifest rules, and validation expectations are documented in <a href="configuration.html">Manifest and Environment</a>.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Repository Scope</h2>
+                    <p>The repository can host multiple agents over time. Current operational scope is centered on <code>dpuAgent</code> as the confidential runtime intermediary between Explorer and secure data storage.</p>
+                    <div class="doc-callout">
+                        <p><strong>Validation rule:</strong> run <code>npm test</code> from <code>dpuAgent/</code> for code changes, together with documentation updates.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="partials-loader.js"></script>
+</body>
+</html>

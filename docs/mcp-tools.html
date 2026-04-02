@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dpuAgent Docs - MCP Tools</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main class="content content--with-sidebar">
+        <div class="doc-layout">
+            <aside class="doc-sidebar" aria-label="dpuAgent documentation navigation">
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Documentation</p>
+                    <nav>
+                        <a href="index.html">Overview</a>
+                        <a href="architecture.html">Architecture</a>
+                        <a href="execution-workflow.html">Tool Execution Workflow</a>
+                        <a href="mcp-tools.html" aria-current="page">MCP Tools</a>
+                        <a href="integrations.html">Ploinky and Explorer Integration</a>
+                        <a href="configuration.html">Manifest and Environment</a>
+                    </nav>
+                </div>
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Specifications</p>
+                    <nav>
+                        <a href="specs-index.html">Design Specifications</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <div class="doc-main">
+                <section class="lead">
+                    <h1>MCP Tools</h1>
+                    <p>DPU contracts are declared in <code>dpuAgent/mcp-config.json</code> and routed through <code>tools/dpu_tool.sh</code>.</p>
+                </section>
+
+                <section>
+                    <h2>Tool Groups</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Group</th>
+                                <th>Tools</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Identity and roots</td>
+                                <td><code>dpu_whoami</code>, <code>dpu_workspace_roots</code></td>
+                                <td>Resolve actor identity and virtual confidential roots.</td>
+                            </tr>
+                            <tr>
+                                <td>Secrets lifecycle</td>
+                                <td><code>dpu_secret_list</code>, <code>dpu_secret_get</code>, <code>dpu_secret_put</code>, <code>dpu_secret_delete</code>, <code>dpu_secret_grant</code>, <code>dpu_secret_revoke</code></td>
+                                <td>Manage secret metadata, encrypted values, and ACLs.</td>
+                            </tr>
+                            <tr>
+                                <td>Confidential objects</td>
+                                <td><code>dpu_confidential_list</code>, <code>dpu_confidential_get</code>, <code>dpu_confidential_create</code>, <code>dpu_confidential_update</code>, <code>dpu_confidential_delete</code></td>
+                                <td>Manage confidential file/folder metadata and encrypted blob content.</td>
+                            </tr>
+                            <tr>
+                                <td>Comments and collaboration</td>
+                                <td><code>dpu_confidential_comment_add</code>, <code>dpu_confidential_comment_delete</code>, <code>dpu_confidential_grant</code>, <code>dpu_confidential_revoke</code></td>
+                                <td>Support object comments and collaboration ACL flows.</td>
+                            </tr>
+                            <tr>
+                                <td>Permission check</td>
+                                <td><code>dpu_access_check</code></td>
+                                <td>Evaluate actor permission on secrets or confidential objects.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>Input Contract Characteristics</h2>
+                    <ul>
+                        <li>String identifiers such as <code>key</code>, <code>id</code>, <code>principal</code>, and <code>role</code> are validated before dispatch.</li>
+                        <li>Enum constraints are enforced for fields like <code>scope</code>, <code>kind</code>, and <code>permission</code>.</li>
+                        <li>Unsupported tool names fail early and return explicit errors.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Execution Characteristics</h2>
+                    <ul>
+                        <li><code>maxParallelTasks</code> is set to <code>1</code> in MCP config for controlled mutation sequencing.</li>
+                        <li>Responses are actor-filtered and do not expose raw storage internals directly.</li>
+                        <li>Unauthorized operations fail before secret plaintext or protected content is materialized.</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="partials-loader.js"></script>
+</body>
+</html>

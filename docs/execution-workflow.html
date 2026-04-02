@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dpuAgent Docs - Tool Execution Workflow</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main class="content content--with-sidebar">
+        <div class="doc-layout">
+            <aside class="doc-sidebar" aria-label="dpuAgent documentation navigation">
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Documentation</p>
+                    <nav>
+                        <a href="index.html">Overview</a>
+                        <a href="architecture.html">Architecture</a>
+                        <a href="execution-workflow.html" aria-current="page">Tool Execution Workflow</a>
+                        <a href="mcp-tools.html">MCP Tools</a>
+                        <a href="integrations.html">Ploinky and Explorer Integration</a>
+                        <a href="configuration.html">Manifest and Environment</a>
+                    </nav>
+                </div>
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Specifications</p>
+                    <nav>
+                        <a href="specs-index.html">Design Specifications</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <div class="doc-main">
+                <section class="lead">
+                    <h1>Tool Execution Workflow</h1>
+                    <p>Each MCP tool call is process-isolated. The wrapper script launches a fresh Node runtime for every invocation.</p>
+                </section>
+
+                <section>
+                    <h2>End-to-End Flow Diagram</h2>
+                    <pre><code>Explorer UI / MCP client
+    |
+    | callTool("dpu_*", args)
+    v
+Ploinky Router -> AgentServer (/mcp)
+    |
+    | execute command from mcp-config.json
+    v
+dpuAgent/tools/dpu_tool.sh
+    |
+    | launch dpu_tool.mjs
+    v
+dpuAgent/tools/dpu_tool.mjs
+    |
+    | parse stdin envelope
+    | normalize input and auth metadata
+    | validate required fields and enums
+    | dispatch to dpu-store operation
+    v
+dpuAgent/lib/dpu-store.mjs
+    |
+    | resolve actor identity and ACL
+    | execute locked storage update/read
+    v
+JSON response -> MCP output -> Explorer UI</code></pre>
+                </section>
+
+                <section>
+                    <h2>Detailed Lifecycle Stages</h2>
+                    <ol>
+                        <li><strong>Dispatch:</strong> AgentServer maps MCP tool name to wrapper command with <code>TOOL_NAME</code>.</li>
+                        <li><strong>Envelope normalization:</strong> dispatcher extracts arguments from MCP input variants and auth from <code>metadata.authInfo</code>.</li>
+                        <li><strong>Input validation:</strong> required strings and enum-like fields are validated before domain execution.</li>
+                        <li><strong>Operation routing:</strong> tool name selects one domain function in <code>dpu-store.mjs</code>.</li>
+                        <li><strong>Permission resolution:</strong> actor identity is normalized against manifest and ACL checks run before value access or mutation.</li>
+                        <li><strong>Storage interaction:</strong> reads/writes occur through locked storage helpers and encrypted payload routines.</li>
+                        <li><strong>Response emission:</strong> operation result is serialized as JSON; exceptions return <code>ok: false</code> payloads.</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>Runtime Modes</h2>
+                    <p>The same domain dispatch model is used for Ploinky runtime and standalone MCP server mode (<code>server/standalone-mcp-server.mjs</code>). This keeps contract behavior consistent while changing only hosting mode.</p>
+                    <div class="doc-callout">
+                        <p>Mutating flows rely on lock-controlled storage writes to preserve atomic state updates.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="partials-loader.js"></script>
+</body>
+</html>

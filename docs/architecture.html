@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dpuAgent Docs - Architecture</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main class="content content--with-sidebar">
+        <div class="doc-layout">
+            <aside class="doc-sidebar" aria-label="dpuAgent documentation navigation">
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Documentation</p>
+                    <nav>
+                        <a href="index.html">Overview</a>
+                        <a href="architecture.html" aria-current="page">Architecture</a>
+                        <a href="execution-workflow.html">Tool Execution Workflow</a>
+                        <a href="mcp-tools.html">MCP Tools</a>
+                        <a href="integrations.html">Ploinky and Explorer Integration</a>
+                        <a href="configuration.html">Manifest and Environment</a>
+                    </nav>
+                </div>
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Specifications</p>
+                    <nav>
+                        <a href="specs-index.html">Design Specifications</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <div class="doc-main">
+                <section class="lead">
+                    <h1>Architecture</h1>
+                    <p><code>dpuAgent</code> is a confidential storage intermediary between Explorer and encrypted DPU state. It runs under Ploinky MCP or standalone runtime mode.</p>
+                </section>
+
+                <section>
+                    <h2>Component Overview</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Location</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MCP contract declaration</td>
+                                <td><code>dpuAgent/mcp-config.json</code></td>
+                                <td>Defines confidential and secret tool surface and input schemas.</td>
+                            </tr>
+                            <tr>
+                                <td>Wrapper entrypoint</td>
+                                <td><code>dpuAgent/tools/dpu_tool.sh</code></td>
+                                <td>Starts one Node invocation for each MCP tool call.</td>
+                            </tr>
+                            <tr>
+                                <td>Tool dispatcher</td>
+                                <td><code>dpuAgent/tools/dpu_tool.mjs</code></td>
+                                <td>Parses envelope, validates args, extracts auth info, dispatches domain functions.</td>
+                            </tr>
+                            <tr>
+                                <td>Domain service</td>
+                                <td><code>dpuAgent/lib/dpu-store.mjs</code></td>
+                                <td>Implements secrets, confidential objects, comments, ACL grants/revokes, and checks.</td>
+                            </tr>
+                            <tr>
+                                <td>Internal storage and ACL layers</td>
+                                <td><code>dpuAgent/lib/dpu-store-internal/*</code></td>
+                                <td>Maintains encrypted persistence, locking, identity normalization, and permission manifest logic.</td>
+                            </tr>
+                            <tr>
+                                <td>Explorer plugin channel</td>
+                                <td><code>dpuAgent/IDE-plugins/*</code></td>
+                                <td>Provides runtime support and comments integration components for confidential UI flows.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>Storage Separation Model</h2>
+                    <p>DPU separates metadata, permissions, encrypted secret values, and confidential content blobs. This keeps ACL state explicit and prevents plaintext secret values from leaking into metadata registries.</p>
+                    <pre><code>.dpu-storage/
+  state.json
+  permissions.manifest.json
+  secrets.json
+  blobs/
+  .lock/</code></pre>
+                </section>
+
+                <section>
+                    <h2>Intermediary Boundary</h2>
+                    <p>Explorer does not own confidential persistence logic. It calls MCP tools and receives actor-filtered responses. DPU decides role visibility, access checks, and serialized outputs for each actor context.</p>
+                    <div class="doc-callout doc-callout--important">
+                        <p>Secrets and confidential objects are domain records with dedicated semantics, not normal filesystem entities.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="partials-loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specification Viewer - dpuAgent Docs</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main class="content">
+        <div class="doc-main">
+            <section class="lead">
+                <h1>Specification Viewer</h1>
+                <p>
+                    <a href="index.html">Home</a> |
+                    <a href="specs-index.html">Specifications</a> |
+                    <span id="current-spec">Loading...</span>
+                </p>
+            </section>
+
+            <section id="spec-content">
+                <div class="loading">Loading specification...</div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function getSpecPath() {
+            const params = new URLSearchParams(window.location.search);
+            const spec = params.get('spec');
+            if (!spec) {
+                return 'specs/DS01-vision.md';
+            }
+            if (spec.includes('/')) {
+                return spec;
+            }
+            return `specs/${spec}`;
+        }
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function markdownToHtml(markdown) {
+            const lines = markdown.split('\n');
+            const parts = [];
+            let paragraph = [];
+            let list = [];
+            let inCode = false;
+            let code = [];
+
+            const flushParagraph = () => {
+                if (!paragraph.length) return;
+                parts.push(`<p>${paragraph.join('<br>')}</p>`);
+                paragraph = [];
+            };
+
+            const flushList = () => {
+                if (!list.length) return;
+                parts.push(`<ul>${list.map((item) => `<li>${item}</li>`).join('')}</ul>`);
+                list = [];
+            };
+
+            const flushCode = () => {
+                if (!code.length) return;
+                parts.push(`<pre><code>${escapeHtml(code.join('\n'))}</code></pre>`);
+                code = [];
+            };
+
+            for (const raw of lines) {
+                const line = raw.trimEnd();
+                const trimmed = line.trim();
+
+                if (trimmed.startsWith('```')) {
+                    if (inCode) {
+                        flushCode();
+                        inCode = false;
+                    } else {
+                        flushParagraph();
+                        flushList();
+                        inCode = true;
+                    }
+                    continue;
+                }
+
+                if (inCode) {
+                    code.push(raw);
+                    continue;
+                }
+
+                if (!trimmed) {
+                    flushParagraph();
+                    flushList();
+                    continue;
+                }
+
+                const heading = trimmed.match(/^(#{1,4})\s+(.+)$/);
+                if (heading) {
+                    flushParagraph();
+                    flushList();
+                    const level = heading[1].length;
+                    parts.push(`<h${level}>${escapeHtml(heading[2])}</h${level}>`);
+                    continue;
+                }
+
+                const listItem = trimmed.match(/^-\s+(.+)$/);
+                if (listItem) {
+                    flushParagraph();
+                    list.push(escapeHtml(listItem[1]));
+                    continue;
+                }
+
+                paragraph.push(escapeHtml(line));
+            }
+
+            flushCode();
+            flushList();
+            flushParagraph();
+            return parts.join('');
+        }
+
+        async function loadSpec() {
+            const specPath = getSpecPath();
+            document.getElementById('current-spec').textContent = specPath;
+            const target = document.getElementById('spec-content');
+            try {
+                const response = await fetch(specPath);
+                if (!response.ok) {
+                    throw new Error(`Specification not found: ${specPath}`);
+                }
+                const markdown = await response.text();
+                target.innerHTML = markdownToHtml(markdown);
+            } catch (error) {
+                target.innerHTML = `<div class="error"><strong>Error Loading Specification</strong><br>${escapeHtml(error.message)}</div>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSpec);
+    </script>
+
+    <div id="site-footer"></div>
+    <script src="partials-loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dpuAgent Docs - Integrations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main class="content content--with-sidebar">
+        <div class="doc-layout">
+            <aside class="doc-sidebar" aria-label="dpuAgent documentation navigation">
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Documentation</p>
+                    <nav>
+                        <a href="index.html">Overview</a>
+                        <a href="architecture.html">Architecture</a>
+                        <a href="execution-workflow.html">Tool Execution Workflow</a>
+                        <a href="mcp-tools.html">MCP Tools</a>
+                        <a href="integrations.html" aria-current="page">Ploinky and Explorer Integration</a>
+                        <a href="configuration.html">Manifest and Environment</a>
+                    </nav>
+                </div>
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Specifications</p>
+                    <nav>
+                        <a href="specs-index.html">Design Specifications</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <div class="doc-main">
+                <section class="lead">
+                    <h1>Ploinky and Explorer Integration</h1>
+                    <p><code>dpuAgent</code> is consumed through <a href="https://ploinky.com/" target="_blank" rel="noopener noreferrer">Ploinky</a> MCP routing and used by Explorer confidential UX flows as backend authority for secure content.</p>
+                </section>
+
+                <section>
+                    <h2>Ploinky Runtime Integration</h2>
+                    <ul>
+                        <li>Agent lifecycle and env exposure are declared in <code>dpuAgent/manifest.json</code>.</li>
+                        <li>MCP tool surface is declared in <code>dpuAgent/mcp-config.json</code>.</li>
+                        <li>AgentServer executes DPU tools and returns actor-filtered responses to clients.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Explorer Integration Scope</h2>
+                    <p>Explorer confidential views consume DPU APIs for virtual roots such as <code>/Confidential/My Space</code>, <code>/Confidential/Shared</code>, and <code>/Confidential/Secrets</code>. Explorer UI remains presentation layer, while DPU keeps storage, ACL, and identity checks centralized.</p>
+                    <div class="doc-callout">
+                        <p>Collaborative features such as permissions and comments are backed by DPU contracts, not by local Explorer-only state.</p>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>IDE-plugins Channel</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Plugin</th>
+                                <th>Location</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>dpu-runtime-support</code></td>
+                                <td><code>file-exp:internal</code></td>
+                                <td>Internal runtime support channel and permission modal integration.</td>
+                            </tr>
+                            <tr>
+                                <td><code>dpu-comments-popover</code></td>
+                                <td><code>dpu:internal</code></td>
+                                <td>Comment add/delete UI bound to DPU confidential comment tools.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="partials-loader.js"></script>
+</body>
+</html>

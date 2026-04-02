@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dpuAgent Docs - Manifest and Environment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main class="content content--with-sidebar">
+        <div class="doc-layout">
+            <aside class="doc-sidebar" aria-label="dpuAgent documentation navigation">
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Documentation</p>
+                    <nav>
+                        <a href="index.html">Overview</a>
+                        <a href="architecture.html">Architecture</a>
+                        <a href="execution-workflow.html">Tool Execution Workflow</a>
+                        <a href="mcp-tools.html">MCP Tools</a>
+                        <a href="integrations.html">Ploinky and Explorer Integration</a>
+                        <a href="configuration.html" aria-current="page">Manifest and Environment</a>
+                    </nav>
+                </div>
+                <div class="doc-sidebar__group">
+                    <p class="doc-sidebar__group-title">Specifications</p>
+                    <nav>
+                        <a href="specs-index.html">Design Specifications</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <div class="doc-main">
+                <section class="lead">
+                    <h1>Manifest and Environment</h1>
+                    <p><code>dpuAgent</code> uses a manifest-defined runtime profile and strict env-based configuration for encryption key material, workspace roots, and storage location.</p>
+                </section>
+
+                <section>
+                    <h2>Manifest</h2>
+                    <p>Main runtime file: <code>dpuAgent/manifest.json</code>.</p>
+                    <pre><code>{
+  "container": "node:20-alpine",
+  "profiles": {
+    "default": {
+      "env": [
+        "ASSISTOS_FS_ROOT",
+        "WORKSPACE_ROOT",
+        "DPU_WORKSPACE_ROOT",
+        { "name": "DPU_DATA_ROOT", "required": false },
+        { "name": "DPU_MASTER_KEY", "allowSecretsFile": false }
+      ]
+    }
+  }
+}</code></pre>
+                </section>
+
+                <section>
+                    <h2>Core Environment Variables</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>DPU_MASTER_KEY</code></td>
+                                <td>Required encryption root secret for protected values and confidential content.</td>
+                            </tr>
+                            <tr>
+                                <td><code>DPU_DATA_ROOT</code></td>
+                                <td>Optional explicit storage root for DPU state and blobs.</td>
+                            </tr>
+                            <tr>
+                                <td><code>DPU_WORKSPACE_ROOT</code>, <code>ASSISTOS_FS_ROOT</code>, <code>WORKSPACE_ROOT</code></td>
+                                <td>Workspace root resolution chain used by runtime and storage defaults.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>Standalone Runtime</h2>
+                    <p>The standalone server entrypoint is <code>dpuAgent/server/standalone-mcp-server.mjs</code> with endpoints <code>POST /mcp</code> and <code>GET /health</code>. This mode reuses the same tool dispatch and storage layers.</p>
+                </section>
+
+                <section>
+                    <h2>Test Validation</h2>
+                    <p>Code changes should be treated as complete only after <code>npm test</code> passes in <code>dpuAgent/</code>, together with documentation updates.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="partials-loader.js"></script>
+</body>
+</html>
