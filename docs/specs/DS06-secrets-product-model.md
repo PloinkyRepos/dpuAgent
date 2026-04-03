@@ -86,13 +86,21 @@ The secret details experience should expose:
 - permissions/ACL list
 - actions available for the actor
 
+The value section must behave as an inline secure editor:
+
+- the value is masked by default even when the actor has read access
+- reveal and mask are controlled explicitly through a visibility toggle
+- for actors with `write`, clicking or focusing the value field enters inline edit mode
+- `Save` and `Cancel` are local actions of the value section
+- the secret must not switch into the generic file editor flow
+
 ### Value visibility rules
 
 - `access` only: no plaintext value
 - `read`: plaintext value may be revealed
 - `write`: plaintext value may be revealed and updated
 
-The UI should default to safe presentation even when value visibility is allowed. Reveal should be deliberate, not implicit from simple listing.
+The UI should default to safe presentation even when value visibility is allowed. Reveal should be deliberate, not implicit from simple listing. The default presentation for readable values is masked, not plaintext.
 
 ## Update Semantics
 
@@ -102,7 +110,7 @@ If an actor has `write`:
 - the update becomes the new live value immediately
 - all runtime consumers with operational `access` observe the new value on their next resolution/use path
 
-The update action should be modeled as `set secret value`. Explorer may expose this through the standard `Edit` / `Save` controls, but persistence must resolve to the secret API, not to filesystem writes.
+The update action should be modeled as `set secret value`. Explorer must expose this through the dedicated inline secret editor, not through the generic file editor, and persistence must resolve to the secret API, not to filesystem writes.
 
 Before persisting a value update, Explorer should re-check the current secret revision metadata. If the secret changed after the current actor entered edit mode, the save must be rejected and the latest server version must be reloaded before the actor can retry.
 
